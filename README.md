@@ -58,6 +58,8 @@ Open **Scarlett MixControl (Patched)** from Applications. The original app won't
 
 A **shim** is a thin layer between two programs. Each side thinks it's talking directly to the other. The shim passes most messages through unchanged and alters a few.
 
+### Where the shim sits
+
 ```mermaid
 classDiagram
     direction LR
@@ -81,6 +83,8 @@ classDiagram
     Shim --> macOS : calls
 ```
 
+### What happens at startup
+
 ```mermaid
 sequenceDiagram
     participant MC as MixControl
@@ -99,14 +103,16 @@ sequenceDiagram
     OS->>HW: USB control requests
 ```
 
-**How it gets in**
+### How it gets in
+
 1. `build.sh` puts the shim inside a copy of the app.
 2. The copy's launcher sets `DYLD_INSERT_LIBRARIES`.
 3. macOS's program loader (`dyld`) loads the shim before MixControl starts.
 4. The shim routes two system functions through itself.
 5. MixControl's code is never modified. Only the answers it gets back change.
 
-**Why it's safe**
+### Why it's safe
+
 - It only affects Focusrite devices (USB vendor ID `0x1235`).
 - It only changes how the device is found. Mixer commands go through untouched.
 - It only runs inside the patched copy, not anywhere else on your Mac.
