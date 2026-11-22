@@ -113,6 +113,12 @@ sequenceDiagram
 4. The shim routes two system functions through itself.
 5. MixControl's code is never modified. Only the answers it gets back change.
 
+### How MixControl ends up calling the shim
+
+- Focusrite's code calls macOS functions through a linking table that `dyld` fills in at launch.
+- The shim tells `dyld` to put its own address in that table for two of Apple's functions.
+- So MixControl calls the shim, and the shim calls Apple's real functions and adjusts the result when needed.
+
 ### Why it's safe
 
 - It only affects Focusrite devices (USB vendor ID `0x1235`).
