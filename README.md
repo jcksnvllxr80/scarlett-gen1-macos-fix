@@ -54,9 +54,64 @@ Open **Scarlett MixControl (Patched)** from Applications. The original app won't
 - Quit MixControl, replug the interface, and open the app again.
 - Log: `~/Library/Logs/ScarlettMixControlShim.log`. For a detailed log, run: `open --env SCARLETT_SHIM_DEBUG=1 "/Applications/Scarlett MixControl (Patched).app"`
 
-## How it works
+## How the sausage is made 🌭
 
-MixControl looks for a USB audio object that current macOS no longer creates. `shim.c` redirects that lookup to the device's USB interface and supplies the matching CoreAudio ID. It affects only Focusrite devices. Details are in [`shim.c`](shim.c).
+A **shim** is a thin layer between two programs. Each side thinks it's talking directly to the other. The shim passes most messages through unchanged and alters a few.
+
+```mermaid
+classDiagram
+    direction LR
+    class MixControl {
+        Intel app by Focusrite
+        waitForAudioEngine()
+        readEngineUID()
+        sendMixerCommands()
+    }
+    class Shim {
+        libScarlettMixControlShim.dylib
+        AddMatchingNotification() altered
+        CreateCFProperty() altered
+        everything else passed through
+    }
+    class macOS {
+        IOKit + CoreAudio
+        usbaudiod
+    }
+    MixControl --> Shim : calls
+    Shim --> macOS : calls
+```
+
+```mermaid
+sequenceDiagram
+    participant MC as MixControl
+    participant S as Shim
+    participant OS as macOS
+    participant HW as Scarlett
+
+    MC->>S: Tell me when an "AppleUSBAudioEngine" appears
+    S->>OS: Tell me when a Focusrite USB interface appears
+    OS-->>MC: Interface found
+    MC->>S: Read "IOAudioEngineGlobalUniqueID"
+    S->>OS: Read property
+    OS-->>S: Not found
+    S-->>MC: CoreAudio ID of the Scarlett
+    MC->>OS: Mixer and routing commands (untouched)
+    OS->>HW: USB control requests
+```
+
+**How it gets in**
+1. `build.sh` puts the shim inside a copy of the app.
+2. The copy's launcher sets `DYLD_INSERT_LIBRARIES`.
+3. macOS's program loader (`dyld`) loads the shim before MixControl starts.
+4. The shim routes two system functions through itself.
+5. MixControl's code is never modified. Only the answers it gets back change.
+
+**Why it's safe**
+- It only affects Focusrite devices (USB vendor ID `0x1235`).
+- It only changes how the device is found. Mixer commands go through untouched.
+- It only runs inside the patched copy, not anywhere else on your Mac.
+
+Full details are in [`shim.c`](shim.c).
 
 ## License
 
