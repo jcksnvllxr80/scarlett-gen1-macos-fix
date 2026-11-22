@@ -1,6 +1,6 @@
-# Scarlett MixControl for modern macOS
+# scarlett-gen1-macos-fix
 
-Makes Focusrite's **Scarlett MixControl** work again with **1st-gen Scarlett** interfaces on current macOS, including Apple Silicon.
+An unofficial fix that makes Focusrite's **Scarlett MixControl** work again with **1st-gen Scarlett** interfaces on current macOS, including Apple Silicon.
 
 On current macOS, MixControl shows "NO HARDWARE CONNECTED" even when the interface is plugged in and working. This project patches a copy of the app so it finds the device. The original app isn't modified.
 
@@ -35,8 +35,8 @@ Other setups probably work. Please open an issue to report yours.
 2. Open the downloaded `.dmg` and drag **Scarlett MixControl** into **Applications**.
 3. Run:
    ```sh
-   git clone https://github.com/jcksnvllxr80/scarlett-mix-control.git
-   cd scarlett-mix-control
+   git clone https://github.com/jcksnvllxr80/scarlett-gen1-macos-fix.git
+   cd scarlett-gen1-macos-fix
    ./build.sh --install
    ```
 

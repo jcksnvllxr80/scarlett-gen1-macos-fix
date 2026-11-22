@@ -91,7 +91,7 @@ cp "$BUILD/$SHIM_NAME" "$OUT_APP/Contents/Frameworks/$SHIM_NAME"
 mv "$MACOS_DIR/$EXEC_NAME" "$MACOS_DIR/$EXEC_NAME.bin"
 cat > "$MACOS_DIR/$EXEC_NAME" <<'LAUNCHER'
 #!/bin/sh
-# Launcher added by scarlett-mix-control: starts MixControl with the shim loaded.
+# Launcher added by scarlett-gen1-macos-fix: starts MixControl with the shim loaded.
 DIR="$(cd "$(dirname "$0")" && pwd)"
 export DYLD_INSERT_LIBRARIES="$DIR/../Frameworks/libScarlettMixControlShim.dylib"
 exec "$DIR/Scarlett MixControl.bin" "$@"
