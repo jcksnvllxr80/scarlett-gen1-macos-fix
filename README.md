@@ -12,6 +12,17 @@ On current macOS, MixControl shows "NO HARDWARE CONNECTED" even when the interfa
 
 Scarlett **18i20** (tested), **18i8**, **18i6**, **8i6**, **6i6** (1st gen, untested).
 
+## Tested on
+
+| | |
+|---|---|
+| Mac | MacBook Pro, Apple M1 Max |
+| macOS | 27.0.1 |
+| Interface | Scarlett 18i20 (1st gen) |
+| MixControl | 1.10.6 (running under Rosetta 2) |
+
+Other setups probably work. Please open an issue to report yours.
+
 ## Requirements
 
 - Scarlett MixControl 1.10.6 installed in `/Applications`
