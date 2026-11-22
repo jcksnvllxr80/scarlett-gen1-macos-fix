@@ -61,6 +61,7 @@ A **shim** is a thin layer between two programs. Each side thinks it's talking d
 ### Where the shim sits
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"lineColor": "#E5322D", "signalColor": "#E5322D", "actorLineColor": "#8B949E", "signalTextColor": "#8B949E", "textColor": "#8B949E", "primaryColor": "#FDECEC", "primaryBorderColor": "#E5322D", "primaryTextColor": "#1F2328", "edgeLabelBackground": "#FDECEC"}}}%%
 classDiagram
     direction LR
     class MixControl {
@@ -86,6 +87,7 @@ classDiagram
 ### What happens at startup
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"lineColor": "#E5322D", "signalColor": "#E5322D", "actorLineColor": "#8B949E", "signalTextColor": "#8B949E", "textColor": "#8B949E", "primaryColor": "#FDECEC", "primaryBorderColor": "#E5322D", "primaryTextColor": "#1F2328", "edgeLabelBackground": "#FDECEC"}}}%%
 sequenceDiagram
     participant MC as MixControl
     participant S as Shim
