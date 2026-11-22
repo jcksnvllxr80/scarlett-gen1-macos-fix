@@ -24,7 +24,7 @@ Scarlett **18i20** (tested), **18i8**, **18i6**, **8i6**, **6i6** (1st gen, unte
 2. Open the downloaded `.dmg` and drag **Scarlett MixControl** into **Applications**.
 3. Run:
    ```sh
-   git clone https://github.com/<your-account>/scarlett-mix-control.git
+   git clone https://github.com/jcksnvllxr80/scarlett-mix-control.git
    cd scarlett-mix-control
    ./build.sh --install
    ```
